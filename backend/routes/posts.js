@@ -48,7 +48,8 @@ router.post(
       }
     });
   });
-});
+  }
+);
 
 router.put(
   "/:id",
