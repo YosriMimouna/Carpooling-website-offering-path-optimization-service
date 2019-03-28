@@ -36,8 +36,9 @@ export class AuthService {
       .subscribe(response => {
         console.log(response);
         this.router.navigate(['/']);
+      }, error => {
+        this.authStatusListener.next(false);
       });
-
   }
 
   login(email: string, password: string) {
@@ -57,6 +58,8 @@ export class AuthService {
           this.saveAuthData(token, expirationDate, this.userId);
           this.router.navigate(['/']);
         }
+      }, error => {
+        this.authStatusListener.next(false);
       });
   }
 
