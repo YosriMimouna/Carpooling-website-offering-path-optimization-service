@@ -3,6 +3,16 @@
   <form (submit)="onSignup(signupForm)" #signupForm="ngForm" *ngIf="!isLoading">
     <mat-form-field>
       <input
+      type="string"
+      name="name"
+      ngModel
+      matInput
+      placeholder="Full Name"
+      #nameInput="ngModel"
+      required>
+    </mat-form-field>
+    <mat-form-field>
+      <input
       matInput
       name="email"
       ngModel

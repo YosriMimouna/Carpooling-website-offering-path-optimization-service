@@ -7,7 +7,9 @@ const postsRoutes = require("./routes/posts");
 const userRoutes = require ("./routes/user");
 
 const app = express();
-
+//zaM6GBpVYDJlt5fg
+//mongodb+srv://yosri:Uws87Tu8xPcYvkMn@cluster0-tm1vr.mongodb.net/covoiturage?retryWrites=true
+//mongodb+srv://yosry:zaM6GBpVYDJlt5fgrs@cluster0-tm1vr.mongodb.net/covoiturage?retryWrites=true
 mongoose.connect("mongodb+srv://yosri:Uws87Tu8xPcYvkMn@cluster0-tm1vr.mongodb.net/covoiturage?retryWrites=true", { useNewUrlParser: true })
   .then(() => {
     console.log('Connected to database!');
