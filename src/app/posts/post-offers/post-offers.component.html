@@ -1,0 +1,35 @@
+<mat-spinner *ngIf="isLoading"></mat-spinner>
+<!----app-search-bar></app-search-bar-->
+<mat-accordion multi="true" *ngIf="posts.length > 0 && !isLoading">
+  <mat-expansion-panel [expanded]="true" (opened)="true" hideToggle *ngFor="let post of posts">
+    <mat-expansion-panel-header>
+    </mat-expansion-panel-header>
+    <ul>
+      <li>
+        <mat-list>
+          <mat-list-item><h4>Date : {{ post.date }}</h4></mat-list-item>
+          <mat-divider></mat-divider>
+          <mat-list-item><h4>Departure City : {{ post.dep }}</h4></mat-list-item>
+          <mat-divider></mat-divider>
+          <mat-list-item><h4>Destination City : {{ post.des }}</h4></mat-list-item>
+          <mat-divider></mat-divider>
+          <mat-list-item><h4>Phone number : {{ post.title }}</h4></mat-list-item>
+          <mat-divider></mat-divider>
+        <mat-list-item><h5>{{ post.content }}</h5></mat-list-item>
+        </mat-list>
+      </li>
+      <li>
+        <div class="post-image">
+          <img [src]="post.imagePath" [alt]="post.title">
+        </div>
+      </li>
+    </ul>
+    <mat-action-row *ngIf="userIsAuthenticated">
+      <button *ngIf="userId !== post.creator" mat-button color="primary" (click)="onParticipate(post.id, userId, post.creator)">PARTICIPATE</button>
+      <a *ngIf="userId == post.creator" mat-button color="primary" [routerLink]="['/edit', post.id]">EDIT</a>
+      <button *ngIf="userId == post.creator" mat-button color="warn" (click)="onDelete(post.id)">DELETE</button>
+    </mat-action-row>
+  </mat-expansion-panel>
+</mat-accordion>
+<mat-paginator [length]="totalPosts" [pageSize]="postsPerPage" [pageSizeOptions]="pageSizeOptions" (page)="onChangedPage($event)" *ngIf="posts.length > 0 && !isSearch"></mat-paginator>
+<p class="info-text mat-body-1" *ngIf="posts.length <= 0 && !isLoading">No posts added yet!</p>

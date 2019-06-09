@@ -1,0 +1,13 @@
+
+iframe {
+  min-width: 1000px; /* It should not be 100% */
+  min-height: 800px;
+  margin-left: auto;   /* Automatic margin from left */
+  margin-right: auto; /* Automatic margin from right */
+  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+}
+
+map {
+  margin:auto;
+  text-align:center;
+}

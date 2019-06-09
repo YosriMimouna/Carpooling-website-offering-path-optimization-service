@@ -8,13 +8,21 @@ import {
   MatPaginatorModule,
   MatDialogModule,
   MatNativeDateModule,
-  MatDatepickerModule
+  MatDatepickerModule,
+  MatDividerModule,
+  MatBadgeModule
 } from '@angular/material';
 
 import { NgModule } from '@angular/core';
+import { MatListModule } from '@angular/material/list';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   exports: [
+    MatBadgeModule,
+    MatSelectModule,
+    MatListModule,
+    MatDividerModule,
     MatNativeDateModule,
     MatDatepickerModule,
     MatDialogModule,

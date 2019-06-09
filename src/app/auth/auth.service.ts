@@ -1,18 +1,41 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { AuthData } from './auth-data.model';
+import { AuthData, AuthDataEdit } from './auth-data.model';
+import { SubmitData } from './submit-data.model';
 import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material';
+import { NotifComponent } from '../notifications/notif.component';
+import { Time } from '@angular/common';
+
+
 
 @Injectable({ providedIn: 'root'})
 export class AuthService {
+
   private token: string;
   private isAuthenticated = false;
   private tokenTimer: any;
   private userId: string;
+  private userEmail: string;
+  private userName: string;
+  private notif: number;
+  private user: AuthData;
   private authStatusListener = new Subject<boolean>();
+  private submitData: SubmitData;
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient, private router: Router, private dialog: MatDialog) {}
+
+  getUserInfo(id: string): any {
+    return this.http
+    .get<{_id: string; name:string; email:string; password:string; notif: Number; Type: string }>(
+        'http://localhost:3000/api/user/' + id
+      );
+  }
+
+  getSubmitInfo() {
+    return this.submitData;
+  }
 
   getToken() {
     return  this.token;
@@ -26,14 +49,33 @@ export class AuthService {
     return this.userId;
   }
 
+  getUserName() {
+    return this.userName;
+  }
+
+  getNotif() {
+    return this.notif;
+  }
+
+  getUser(id: string) {
+    if (this.isAuthenticated === true) {
+      return {...this.user};
+    }
+  }
+
   getAuthStatusListener() {
     return this.authStatusListener.asObservable();
   }
 
-  createUser(name: string, email: string, password: string) {
-    const authData: AuthData = {name: name, email: email, password: password};
-    console.log(name);
-    this.http.post('http://localhost:3000/api/user/signup', authData)
+  createUser(name: string, num: number, email: string, password: string, type: string, image: File) {
+    const authData = new FormData();
+    authData.append('name', name);
+    authData.append('num', num.toString());
+    authData.append('email', email);
+    authData.append('password', password);
+    authData.append('type', type);
+    authData.append('image', image, name);
+    this.http.post<{message: string, user: AuthData }>('http://localhost:3000/api/user/signup', authData)
       .subscribe(response => {
         console.log(response);
         this.router.navigate(['/']);
@@ -42,9 +84,32 @@ export class AuthService {
       });
   }
 
+  notifParticipate(postId: string, userId: string, postCreator: string, inc: number) {
+    const num = {id: postCreator, inc: inc, userId: userId, postId: postId};
+    this.http
+      .put('http://localhost:3000/api/user/notif/' + postCreator, num)
+      .subscribe(response => {
+        this.router.navigate(['/']);
+      });
+  }
+
+  notify() {
+    this.dialog.open(NotifComponent, {data: {message: "testing notif"}});
+  }
+
+  updateUser(id: string, name: string, num: number, email: string, password: string, type: string) {
+    const authData: AuthDataEdit = {id: id, name: name, num: num, email: email, password: password, type: type};
+    this.http
+      .put('http://localhost:3000/api/user/profile/' + id, authData)
+      .subscribe(response => {
+        this.router.navigate(['/']);
+      });
+  }
+
   login(email: string, password: string) {
-    const authData: AuthData = {name: "", email: email, password: password};
-    this.http.post<{token: string, expiresIn: number, userId: string}>('http://localhost:3000/api/user/login', authData)
+    const authData: AuthData = {name: "", num:0, email: email, password: password, type: "", imagePath: ""};
+    this.http.post<{token: string, expiresIn: number, userId: string, userName: string, notif: number, email: string}>
+    ('http://localhost:3000/api/user/login', authData)
       .subscribe(response =>{
         const token = response.token;
         this.token = token;
@@ -53,6 +118,10 @@ export class AuthService {
           this.setAuthTimer(expiresInDuration);
           this.isAuthenticated = true;
           this.userId = response.userId;
+          this.userName = response.userName;
+          this.userEmail = response.email;
+          this.notif = response.notif;
+          console.log(response.notif);
           this.authStatusListener.next(true);
           const now = new Date();
           const expirationDate = new Date(now.getTime() + expiresInDuration * 1000);

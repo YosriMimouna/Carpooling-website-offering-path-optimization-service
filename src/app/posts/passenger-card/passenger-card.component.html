@@ -1,0 +1,29 @@
+<h2>Search for carpooling</h2>
+<mat-card>
+    <ul>
+      <li>
+        <img [src]="currentUserInfo.imagePath" width="500" length="850">
+      </li>
+      <li>
+      <mat-list>
+        <mat-list-item><h4>Name             : {{ currentUserInfo.name }}</h4></mat-list-item>
+        <mat-list-item><h4>E-mail           : {{ currentUserInfo.email }}</h4></mat-list-item>
+        <mat-list-item><h4>Departure City   : {{ currentUserCard.dep }}</h4></mat-list-item>
+        <mat-list-item><h4>Destination City : {{ currentUserCard.des }}</h4></mat-list-item>
+        <mat-list-item><h4>Date             : {{ currentUserCard.date }}</h4></mat-list-item>
+        <mat-list-item><h4>Departure Hour   : {{ currentUserCard.dephour }}</h4></mat-list-item>
+        <mat-list-item><h4>Arrival Hour     : {{ currentUserCard.arrhour }}</h4></mat-list-item>
+      </mat-list>
+      </li>
+  </ul>
+  <br>
+  <br>
+  <ul>
+    <li>
+        <button mat-raised-button color="primary" routerLink="/offers" >Possible Offers</button>
+    </li>
+    <li>
+        <button mat-raised-button color="primary" routerLink="/optMap" >Smart Solution</button>
+    </li>
+  </ul>
+</mat-card>

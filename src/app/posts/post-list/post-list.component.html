@@ -1,18 +1,78 @@
-<mat-spinner *ngIf="isLoading"></mat-spinner>
+<!----mat-spinner *ngIf="isLoading"></mat-spinner>
+<app-opt class="opt" *ngIf="userIsAuthenticated"></app-opt>
 <mat-accordion multi="true" *ngIf="posts.length > 0 && !isLoading">
-  <mat-expansion-panel *ngFor="let post of posts">
+  <mat-expansion-panel [expanded]="true" (opened)="true" hideToggle *ngFor="let post of posts">
     <mat-expansion-panel-header>
-      {{ post.title }}
     </mat-expansion-panel-header>
-    <div class="post-image">
-      <img [src]="post.imagePath" [alt]="post.title">
-    </div>
-    <p>{{ post.content }}</p>
-    <mat-action-row *ngIf="userIsAuthenticated && userId === post.creator">
-      <a mat-button color="primary" [routerLink]="['/edit', post.id]">EDIT</a>
-      <button mat-button color="warn" (click)="onDelete(post.id)">DELETE</button>
+    <ul>
+      <li>
+        <mat-list>
+          <mat-list-item><h4>Date : {{ post.date }}</h4></mat-list-item>
+          <mat-divider></mat-divider>
+          <mat-list-item><h4>Departure City : {{ post.dep }}</h4></mat-list-item>
+          <mat-divider></mat-divider>
+          <mat-list-item><h4>Destination City : {{ post.des }}</h4></mat-list-item>
+          <mat-divider></mat-divider>
+          <mat-list-item><h4>Phone number : {{ post.title }}</h4></mat-list-item>
+          <mat-divider></mat-divider>
+        <mat-list-item><h5>{{ post.content }}</h5></mat-list-item>
+        </mat-list>
+      </li>
+      <li>
+        <div class="post-image">
+          <img [src]="post.imagePath" [alt]="post.title">
+        </div>
+      </li>
+    </ul>
+    <mat-action-row *ngIf="userIsAuthenticated">
+      <button *ngIf="userId !== post.creator" mat-button color="primary" (click)="onParticipate(post.id, userId, post.creator)">PARTICIPATE</button>
+      <a *ngIf="userId == post.creator" mat-button color="primary" [routerLink]="['/edit', post.id]">EDIT</a>
+      <button *ngIf="userId == post.creator" mat-button color="warn" (click)="onDelete(post.id)">DELETE</button>
     </mat-action-row>
   </mat-expansion-panel>
 </mat-accordion>
-<mat-paginator [length]="totalPosts" [pageSize]="postsPerPage" [pageSizeOptions]="pageSizeOptions" (page)="onChangedPage($event)" *ngIf="posts.length > 0"></mat-paginator>
+<mat-paginator [length]="totalPosts" [pageSize]="postsPerPage" [pageSizeOptions]="pageSizeOptions" (page)="onChangedPage($event)" *ngIf="posts.length > 0 && !isSearch && false"></mat-paginator>
 <p class="info-text mat-body-1" *ngIf="posts.length <= 0 && !isLoading">No posts added yet!</p>
+-->
+
+<div class="homepic">
+    <img src="assets/img/home.jpg" height="500" class="center">
+</div>
+<br>
+<div *ngIf="!userIsAuthenticated">
+<div class="">
+  <h2>What is carpooling?</h2>
+  <h4>
+    Carpooling also named car-sharing and ride-sharing is a collective transportation system. It is based on the idea that sets of car ownershaving the same travel destination share their vehicles.
+  </h4>
+</div>
+<div class="">
+    <img src="assets/img/final.gif" class="center" width="500">
+</div>
+<ul>
+    <li>
+        <button mat-raised-button color="primary" routerLink="/login" >Login</button>
+    </li>
+    <li>
+        <button mat-raised-button color="primary" routerLink="/signup" >Sign Up</button>
+    </li>
+  </ul>
+  </div>
+<ul *ngIf="userIsAuthenticated">
+    <li>
+        <img src="assets/img/pas.png">
+    </li>
+    <li>
+        <img src="assets/img/car2.jpg">
+    </li>
+</ul>
+<br>
+
+<ul *ngIf="userIsAuthenticated" >
+  <li>
+    <button mat-raised-button color="primary" routerLink="/passengerForm" >Are you a passenger?</button>
+  </li>
+  <li>
+    <button mat-raised-button color="primary" routerLink="/driverForm" >Are you a Driver? </button>
+  </li>
+</ul>

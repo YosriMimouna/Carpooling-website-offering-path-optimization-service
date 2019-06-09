@@ -1,0 +1,56 @@
+<mat-card>
+    <form (submit)="onSubmit(passengerForm)" #passengerForm="ngForm">
+      <mat-form-field>
+      <mat-select placeholder="Departure" name="dep" ngModel type="text">
+                    <mat-option *ngFor="let state of states" [value]="state.value">
+                        {{state.viewValue}}
+                      </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field>
+                <mat-select placeholder="Destination" name="des" ngModel type="text">
+                    <mat-option *ngFor="let state of states" [value]="state.value">
+                        {{state.viewValue}}
+                      </mat-option>
+                </mat-select>
+              </mat-form-field>
+             <mat-form-field>
+                <input
+                name="date"
+                ngModel
+                matInput
+                [matDatepicker]="picker"
+                placeholder="Choose a date"
+                type="text"
+                >
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+              </mat-form-field>
+              <mat-form-field>
+                  <input
+                  matInput
+                  type="time"
+                  name="dephour"
+                 placeholder="Departure Time">
+              </mat-form-field>
+              <mat-form-field>
+              <input
+              matInput
+              type="time"
+              name="arrhour"
+              placeholder="Arrival Time">
+            </mat-form-field>
+            <mat-form-field>
+                <input
+                matInput
+                type="number"
+                name="capacity"
+                placeholder="Car capacity">
+              </mat-form-field>
+            <ul>
+            <li>
+              <button mat-raised-button color="primary" type="submit">Submit</button>
+            </li>
+            </ul>
+    </form>
+  </mat-card>

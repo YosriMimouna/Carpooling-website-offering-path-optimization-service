@@ -1,7 +1,6 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { AuthService } from '../auth/auth.service';
 import { Subscription } from 'rxjs';
-import { Router } from '@angular/router';
 
 @Component ({
   selector: 'app-header',
@@ -12,6 +11,8 @@ import { Router } from '@angular/router';
 export class HeaderComponent implements OnInit, OnDestroy {
   userIsAuthenticated = false;
   private authListenerSubs: Subscription;
+  notif: number;
+  userId: string;
 
   constructor(private authService: AuthService) {}
 
@@ -21,7 +22,16 @@ export class HeaderComponent implements OnInit, OnDestroy {
       .getAuthStatusListener()
       .subscribe(isAuthenticated => {
         this.userIsAuthenticated = isAuthenticated;
+        this.notif = this.authService.getNotif();
+        this.userId = this.authService.getUserId();
       });
+    console.log(this.notif);
+  }
+
+  notify() {
+    this.authService.notify();
+    this.authService.notifParticipate("", this.userId, this.authService.getUserId(), 0);
+    this.notif = 0;
   }
 
   onLogout() {

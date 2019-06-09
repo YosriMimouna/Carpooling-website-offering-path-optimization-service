@@ -1,9 +1,13 @@
 <mat-toolbar color="primary">
+  <img src="assets/img/bee.png" width="75px">
   <span>
-    <a routerLink="/">Carpool TN</a>
+    <a routerLink="/">Bee Route</a>
   </span>
   <span class="spacer"></span>
   <ul>
+    <li>
+      <a mat-button routerLink="/offers" routerLinkActive="mat-accent">View Posts</a>
+    </li>
     <li *ngIf="userIsAuthenticated">
       <a mat-button routerLink="/create" routerLinkActive="mat-accent">New Post</a>
     </li>
@@ -12,6 +16,9 @@
     </li>
     <li *ngIf="!userIsAuthenticated">
       <a mat-button routerLink="/signup" routerLinkActive="mat-accent">Sign up</a>
+    </li>
+    <li *ngIf="userIsAuthenticated">
+      <button mat-button routerLink="/profile">Profile</button>
     </li>
     <li *ngIf="userIsAuthenticated">
       <button mat-button (click)="onLogout()">Logout</button>

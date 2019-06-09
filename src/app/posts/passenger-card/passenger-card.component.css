@@ -1,0 +1,17 @@
+ul {
+
+  list-style: none;
+  margin: auto;
+  display: flex;
+}
+
+li {
+  margin: auto;
+  margin-bottom: 50px;
+}
+
+.mat-raised-button {
+  margin: auto;
+  min-width: 200px;
+  min-height: 50px;
+}

@@ -15,16 +15,36 @@ import { AuthInterceptor } from './auth/auth-interceptor';
 import { ErrorInterceptor } from './error-interceptor';
 import { ErrorComponent } from './error/error.component';
 import { AngularMaterialModule } from './angular-material.module';
+import { ProfileComponent } from './auth/Profile/profile.component';
+import { PostSearchComponent } from './search/search.component';
+import { NotifComponent } from './notifications/notif.component';
+import { OptimizationComponent } from './optimization application/optimization.component';
+import { OptMapComponent } from './opt-map/opt-map.component';
+import { PassengerFormComponent } from './posts/passenger-form/passenger-form.component';
+import { PassengerCardComponent } from './posts/passenger-card/passenger-card.component';
+import { DriverFormComponent } from './posts/driver-form/driver-form.component';
+import { DriverCardComponent } from './posts/driver-card/driver-card.component';
+import { PostOffersComponent } from './posts/post-offers/post-offers.component';
 
 @NgModule({
   declarations: [
+    NotifComponent,
     LoginComponent,
     AppComponent,
     PostCreateComponent,
     PostListComponent,
     SignupComponent,
+    ProfileComponent,
     HeaderComponent,
-    ErrorComponent
+    ErrorComponent,
+    PostSearchComponent,
+    OptimizationComponent,
+    OptMapComponent,
+    PassengerFormComponent,
+    PassengerCardComponent,
+    DriverFormComponent,
+    DriverCardComponent,
+    PostOffersComponent
   ],
   imports: [
     BrowserModule,
@@ -40,6 +60,6 @@ import { AngularMaterialModule } from './angular-material.module';
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}
   ],
   bootstrap: [AppComponent],
-  entryComponents: [ErrorComponent]
+  entryComponents: [ErrorComponent, NotifComponent]
 })
 export class AppModule { }

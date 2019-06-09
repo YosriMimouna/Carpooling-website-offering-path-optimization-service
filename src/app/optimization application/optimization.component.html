@@ -1,0 +1,85 @@
+<h3 *ngIf="!isLoading">Use optimization application</h3>
+<form (submit)="search(searchBar)" #searchBar="ngForm" *ngIf="!isLoading">
+<ul class="search">
+<li>
+  <mat-form-field>
+    <mat-select placeholder="Departure" name="dep" ngModel type="text">
+        <mat-option *ngFor="let state of states" [value]="state.value">
+            {{state.viewValue}}
+          </mat-option>
+    </mat-select>
+  </mat-form-field>
+</li>
+<li>
+  <mat-form-field>
+    <mat-select placeholder="Destination" name="des" ngModel type="text">
+        <mat-option *ngFor="let state of states" [value]="state.value">
+            {{state.viewValue}}
+          </mat-option>
+    </mat-select>
+  </mat-form-field>
+</li>
+<li>
+ <mat-form-field>
+    <input
+    name="date"
+    ngModel
+    matInput
+    [matDatepicker]="picker"
+    placeholder="Choose a date"
+    type="text"
+    >
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+</li>
+</ul>
+<ul>
+<li>
+<mat-form-field>
+  <input
+  matInput
+  type="time"
+  name="arrhour"
+  placeholder="Arrival Time">
+</mat-form-field>
+</li>
+<li>
+    <mat-form-field>
+      <input
+      matInput
+      type="time"
+      name="dephour"
+      placeholder="Departure Time">
+    </mat-form-field>
+</li>
+<li>
+  <mat-form-field>
+    <mat-select placeholder="type" name="type" ngModel type="text" required>
+        <mat-option *ngFor="let type of types" [value]="type.value">
+            {{type.viewValue}}
+          </mat-option>
+    </mat-select>
+  </mat-form-field>
+</li>
+<li>
+  <mat-form-field>
+    <input
+    matInput
+    type="number"
+    name="Capacity"
+    placeholder="Capacity">
+  </mat-form-field>
+</li>
+</ul>
+<ul>
+<li>
+    <button mat-raised-button color="primary" type="submit">Smart Solution</button>
+</li>
+<li>
+  <button mat-raised-button color="primary" refLink type="submit">Possible offers</button>
+</li>
+</ul>
+</form>
+<br>
+

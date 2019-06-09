@@ -1,0 +1,24 @@
+mat-form-field,
+textarea {
+  width: 100%;
+}
+
+input[type="file"] {
+  visibility: hidden;
+}
+
+ul {
+
+  list-style: none;
+  margin: auto;
+  display: flex;
+}
+
+li {
+  margin: auto;
+}
+
+.mat-raised-button {
+  min-width: 200px;
+  min-height: 50px;
+}

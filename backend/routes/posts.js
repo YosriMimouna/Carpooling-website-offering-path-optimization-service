@@ -22,6 +22,17 @@ router.put(
   PostController.updatePost
   );
 
+router.post(
+  "/userCard",
+  PostController.addUserCard);
+
+router.get(
+  "/optMap",
+  PostController.getSmartSol
+);
+
+router.get("/userCard/:id" , PostController.getUserCard);
+
 router.get("" , PostController.getPosts);
 
 router.get("/:id", PostController.getSinglePost);

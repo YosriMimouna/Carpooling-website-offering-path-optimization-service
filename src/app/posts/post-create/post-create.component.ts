@@ -7,6 +7,12 @@ import { Post } from '../post.model';
 import { mimeType } from "./mime-type.validator";
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/auth/auth.service';
+import { stringify } from 'querystring';
+
+export interface State {
+  value: string;
+  viewValue: string;
+}
 
 @Component({
   selector: 'app-post-create',
@@ -14,6 +20,32 @@ import { AuthService } from 'src/app/auth/auth.service';
   styleUrls: ['./post-create.component.css']
 })
 export class PostCreateComponent implements OnInit, OnDestroy {
+  states: State[] = [
+    {value: 'Ariana', viewValue: 'Ariana'},
+    {value: 'Beja', viewValue: 'Beja'},
+    {value: 'Ben Arous', viewValue: 'Ben Arous'},
+    {value: 'Bizerte', viewValue: 'Bizerte'},
+    {value: 'Gabes', viewValue: 'Gabes'},
+    {value: 'Gafsa', viewValue: 'Gafsa'},
+    {value: 'Jandouba', viewValue: 'Jandouba'},
+    {value: 'Kairouan', viewValue: 'Kairouan'},
+    {value: 'Kasserine', viewValue: 'Kasserine'},
+    {value: 'Kebili', viewValue: 'Kebili'},
+    {value: 'Kef', viewValue: 'Kef'},
+    {value: 'Mahdia', viewValue: 'Mahdia'},
+    {value: 'Manouba', viewValue: 'Manouba'},
+    {value: 'Mednine', viewValue: 'Mednine'},
+    {value: 'Monastir', viewValue: 'Monastir'},
+    {value: 'Nabeul', viewValue: 'Nabeul'},
+    {value: 'Sousse', viewValue: 'Sousse'},
+    {value: 'Seliana', viewValue: 'Seliana'},
+    {value: 'Sfax', viewValue: 'Sfax'},
+    {value: 'Sidi Bouzid', viewValue: 'Sidi Bouzid'},
+    {value: 'Tataouine', viewValue: 'Tataouine'},
+    {value: 'Tozeur', viewValue: 'Tozeur'},
+    {value: 'Tunis', viewValue: 'Tunis'},
+    {value: 'Zaghouan', viewValue: 'Zaghouan'}
+  ];
   enteredContent = '';
   enteredTitle = '';
   isLoading = false;
@@ -36,8 +68,13 @@ export class PostCreateComponent implements OnInit, OnDestroy {
     this.form = new FormGroup({
       title: new FormControl(null, {validators: [Validators.required, Validators.minLength(3)]
       }),
-      content: new FormControl(null, {validators: [Validators.required]}),
+      content: new FormControl(null),
       date: new FormControl(null, {validators: [Validators.required]}),
+      dep: new FormControl(null, {validators: [Validators.required]}),
+      des: new FormControl(null, {validators: [Validators.required]}),
+      dephour: new FormControl(null, {validators: [Validators.required]}),
+      arrhour: new FormControl(null, {validators: [Validators.required]}),
+      capacity: new FormControl(null, {validators: [Validators.required]}),
       image: new FormControl(null, {
         validators: [Validators.required],
         asyncValidators: [mimeType]
@@ -55,6 +92,11 @@ export class PostCreateComponent implements OnInit, OnDestroy {
             title: postData.title,
             content: postData.content,
             date: postData.date,
+            dep: postData.dep,
+            des: postData.des,
+            dephour: postData.dephour,
+            arrhour: postData.arrhour,
+            capacity: postData.capacity,
             imagePath: postData.imagePath,
             creator: postData.creator
           };
@@ -62,6 +104,11 @@ export class PostCreateComponent implements OnInit, OnDestroy {
             title: this.post.title,
             content: this.post.content,
             date: this.post.date,
+            dep: this.post.dep,
+            des: this.post.des,
+            dephour: this.post.dephour,
+            arrhour: this.post.arrhour,
+            capacity: this.post.capacity,
             image: this.post.imagePath
         });
         });
@@ -93,6 +140,11 @@ export class PostCreateComponent implements OnInit, OnDestroy {
         this.form.value.title,
         this.form.value.content,
         this.form.value.date,
+        this.form.value.dep,
+        this.form.value.des,
+        this.form.value.dephour,
+        this.form.value.arrhour,
+        this.form.value.capacity,
         this.form.value.image
       );
     } else {
@@ -101,6 +153,11 @@ export class PostCreateComponent implements OnInit, OnDestroy {
         this.form.value.title,
         this.form.value.content,
         this.form.value.date,
+        this.form.value.dep,
+        this.form.value.des,
+        this.form.value.dephour,
+        this.form.value.arrhour,
+        this.form.value.capacity,
         this.form.value.image
       );
     }

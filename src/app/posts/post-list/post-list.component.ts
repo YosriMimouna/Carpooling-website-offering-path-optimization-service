@@ -5,19 +5,27 @@ import { Post } from '../post.model';
 import { PostService } from '../posts.service';
 import { PageEvent } from '@angular/material';
 import { AuthService } from 'src/app/auth/auth.service';
+
+export interface State {
+  value: string;
+  viewValue: string;
+}
+
 @Component({
   selector: 'app-post-list',
-  templateUrl:'./post-list.component.html',
-  styleUrls!: ['./post-list.component.css']
+  templateUrl: './post-list.component.html',
+  styleUrls: ['./post-list.component.css']
 })
 export class PostListComponent implements OnInit, OnDestroy {
   posts: Post[] = [];
   isLoading = false;
+  isSearch = false;
   totalPosts = 0;
-  postsPerPage = 2;
+  postsPerPage = 5;
   currentPage = 1;
   userIsAuthenticated = false;
   userId: string;
+  userName: string;
   pageSizeOptions = [1, 2, 5, 10];
   private postsSub: Subscription;
   private authStatusSub: Subscription;
@@ -27,6 +35,7 @@ export class PostListComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.isLoading = true;
     this.postService.getPosts(this.postsPerPage, this.currentPage);
+    this.userName = this.authService.getUserName();
     this.userId = this.authService.getUserId();
     this.postsSub = this.postService.getPostUpdateListener()
       .subscribe((postData: { posts: Post[], postCount: number}) => {
@@ -39,6 +48,10 @@ export class PostListComponent implements OnInit, OnDestroy {
       this.userIsAuthenticated = isAuthenticated;
       this.userId = this.authService.getUserId();
     });
+  }
+
+  onParticipate(postId: string, userId: string, postCreator: string) {
+    this.authService.notifParticipate(postId, userId, postCreator, 1);
   }
 
   onDelete(postId: string) {
@@ -63,3 +76,4 @@ export class PostListComponent implements OnInit, OnDestroy {
   }
 
 }
+

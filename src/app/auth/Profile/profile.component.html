@@ -1,0 +1,94 @@
+<h3>Edit Profile</h3>
+<mat-card>
+  <mat-spinner *ngIf="isLoading"></mat-spinner>
+  <form (submit)="onSave(saveForm)" #saveForm="ngForm" *ngIf="!isLoading">
+    <mat-form-field>
+      <input
+      type="string"
+      name="name"
+      ngModel
+      matInput
+      placeholder="Full Name"
+      #nameInput="ngModel"
+      required>
+    </mat-form-field>
+    <mat-form-field>
+      <input
+      type="number"
+      name="num"
+      ngModel
+      matInput
+      placeholder="Phone number"
+      #nameInput="ngModel"
+      required>
+      <mat-error *ngIf="nameInput.invalid">Please enter your phone number</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input
+      matInput
+      name="email"
+      ngModel
+      type="email"
+      placeholder="E-Mail"
+      #emailInput="ngModel"
+      required
+      email>
+      <mat-error *ngIf="emailInput.invalid">Please enter a valid e-mail</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input
+      type="password"
+      name="password"
+      ngModel
+      matInput
+      placeholder="Password"
+      #passwordInput="ngModel"
+      required>
+      <mat-error *ngIf="passwordInput.invalid">Please enter a valid password</mat-error>
+    </mat-form-field>
+    <button
+      mat-raised-button
+      color = "primary"
+      type="submit"
+      *ngIf="!isLoading">
+      Edit Info
+  </button>
+  </form>
+</mat-card>
+<br>
+<h3>My posts</h3>
+
+<mat-accordion multi="true" *ngIf="posts.length > 0 && !isLoading  && userIsAuthenticated ">
+  <mat-expansion-panel [expanded]="true" (opened)="true" hideToggle *ngFor="let post of filterItemsOfType(userId)">
+    <div>
+    <ul>
+      <li>
+        <mat-list>
+          <mat-list-item><h4>Date : {{ post.date }}</h4></mat-list-item>
+          <mat-divider></mat-divider>
+          <mat-list-item><h4>Departure City : {{ post.dep }}</h4></mat-list-item>
+          <mat-divider></mat-divider>
+          <mat-list-item><h4>Destination City : {{ post.des }}</h4></mat-list-item>
+          <mat-divider></mat-divider>
+          <mat-list-item><h4>Phone number : {{ post.title }}</h4></mat-list-item>
+          <mat-divider></mat-divider>
+        <mat-list-item><h5>{{ post.content }}</h5></mat-list-item>
+        </mat-list>
+      </li>
+      <li>
+        <div class="post-image">
+          <img [src]="post.imagePath" [alt]="post.title">
+        </div>
+      </li>
+    </ul>
+    <mat-action-row *ngIf="userIsAuthenticated && userId === post.creator">
+      <a mat-button color="primary" [routerLink]="['/edit', post.id]">EDIT</a>
+      <button mat-button color="warn" (click)="onDelete(post.id)">DELETE</button>
+    </mat-action-row>
+  </div>
+  </mat-expansion-panel>
+</mat-accordion>
+<mat-paginator [length]="totalPosts" [pageSize]="postsPerPage" [pageSizeOptions]="pageSizeOptions" (page)="onChangedPage($event)" *ngIf="posts.length > 0"></mat-paginator>
+<p class="info-text mat-body-1" *ngIf="posts.length <= 0 && !isLoading">No posts added yet!</p>
+
+<br>

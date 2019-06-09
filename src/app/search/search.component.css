@@ -1,0 +1,53 @@
+:host {
+  display: block;
+  margin-top: 1rem;
+}
+
+mat-paginator {
+  margin-top: 1rem;
+}
+
+ul {
+
+  list-style: none;
+  margin: auto;
+  display: flex;
+}
+
+li {
+  margin: auto;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.search {
+  margin: 2px 3px 3px 3px;
+  flex: 1 1 auto;
+}
+
+mat-spinner {
+  margin: auto;
+}
+
+.info-text {
+  text-align: center;
+}
+
+.post-image {
+  width: 100%;
+  margin: auto;
+}
+
+.post-image img.resize {
+  width:100px;
+  height:40px;
+}
+
+.post-image img {
+  width: 350px;
+  height: 300px;
+  margin: auto;
+  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+}
