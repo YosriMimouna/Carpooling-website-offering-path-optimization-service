@@ -27,8 +27,8 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 ## Sample Screenshots
 
 ![alt text](https://github.com/YosriMimouna/Carpooling-website-offering-path-optimization-service/blob/master/Screenshots/home.PNG)
-[[https://github.com/YosriMimouna/Carpooling-website-offering-path-optimization-service/blob/master/Screenshots/home1.PNG]]
-[[https://github.com/YosriMimouna/Carpooling-website-offering-path-optimization-service/blob/master/Screenshots/userInfo.PNG]]
+![alt text](https://github.com/YosriMimouna/Carpooling-website-offering-path-optimization-service/blob/master/Screenshots/home1.PNG)
+![alt text](https://github.com/YosriMimouna/Carpooling-website-offering-path-optimization-service/blob/master/Screenshots/userInfo.PNG)
 
 ## Further help
 
